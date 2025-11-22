@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    /* ---------- GLOBAL ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #0d0d14, #000);
+    color: #fff;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+.sidebar {
+    width: 260px;
+    padding: 30px 22px;
+    background: linear-gradient(180deg, #0b0b12, #07070b);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 4px 0 15px rgba(0,0,0,0.4);
+}
+
+.org-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 45px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background: #12121a;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(98, 0, 255, 0.4);
+}
+
+.org-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.org-role {
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+.menu {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.menu li {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #a8a8a8;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu li:hover {
+    background: rgba(255,255,255,0.04);
+}
+
+.menu .active {
+    background: rgba(113, 112, 114, 0.7);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 0 12px rgba(113, 112, 114, 0.7);
+}
+
+/* ---------- MAIN ---------- */
+.main-area {
+    padding: 60px 70px;
+    flex-grow: 1;
+}
+
+.main-area h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+/* ---------- POST BOX ---------- */
+
+.post-box {
+    width: 650px;
+    padding: 28px;
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 25px rgba(106, 27, 255, 0.15),
+                0 0 35px rgba(0, 234, 255, 0.1);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1d1d28;
+}
+
+.post-header input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 20px 0;
+}
+
+/* ---------- FOOTER ---------- */
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icons label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.icons .material-icons {
+    font-size: 26px;
+    opacity: 0.85;
+    transition: 0.2s;
+}
+
+.icons .material-icons:hover {
+    opacity: 1;
+    color: #00eaff;
+}
+
+#charCount {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-right: 14px;
+}
+
+#postBtn {
+    padding: 8px 25px;
+    background: linear-gradient(90deg, #6a1bff, #00eaff);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(106, 27, 255, 0.7);
+    transition: 0.2s;
+}
+
+#postBtn:hover {
+    transform: scale(1.03);
+}
+
+/* ---------- PREVIEW IMAGE ---------- */
+
+#previewImage {
+    margin-top: 12px;
+    width: 160px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 0 12px rgba(0, 234, 255, 0.2);
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+
+</style>
+
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="org-info">
+            <img src="logo\logo.jpg"  class="avatar"></img>
+            <div>
+                <p class="org-name">GAMEZ</p>
+                <p class="org-role">Post page</p>
+            </div>
+        </div>
+
+        <ul class="menu">
+            <li onclick="window.location.href='home1.php'"><span class="material-icons" >home</span> Home</li>
+            <li class="active"><span class="material-icons">campaign</span> Posts</li>
+            <li onclick="window.location.href='tournament.html'"><span class="material-icons">emoji_events</span> Tournaments</li>
+           <li onclick="window.location.href='profile.html'"><span class="material-icons">emoji_events</span> Profile</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-area">
+        <h2>Create a new post</h2>
+  <form action="post.php" method="post" enctype="multipart/form-data">
+        <div class="post-box">
+            <div class="post-header">
+                <div class="user-icon"></div>
+                <input id="postInput" maxlength="280" type="text" placeholder="What's new with your team?" name="desc">
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="post-footer">
+                <div class="icons">
+               <label class="file-upload">
+    <input type="file"  id="fileInput" name="img">
+    <span class="material-icons">image</span>
+    <img id="previewImage" style="display:none; width:150px; height:auto; margin-top:10px; border-radius:8px;" />
+
+                </label>    
+                </div>
+
+                <div class="right-footer">
+                    <span id="charCount">0/280</span>
+                    <button id="postBtn" type="submit">Post</button>
+                </div>
+            </div>
+        </div>
+  </form>
+    </main>
+
+</div>
+<script>
+document.getElementById("fileInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const preview = document.getElementById("previewImage");
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+});
+</script>
+
+</body>
+</html>

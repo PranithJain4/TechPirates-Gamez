@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGENDR — Create Player Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ---------------- Root Vars ---------------- */
+:root {
+  --bg-1:#06060a;
+  --bg-2:#0b0f17;
+  --muted:#cfc9ff;
+  --neon-purple:#6a1bff;
+  --neon-cyan:#00eaff;
+  --card-bg: rgba(255,255,255,0.025);
+}
+
+/* ---------------- Base ---------------- */
+*{ margin:0; padding:0; box-sizing:border-box; font-family:Inter; }
+body{
+  background: radial-gradient(900px 400px at 8% 10%, rgba(58,30,85,0.12), transparent),
+              linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:#f1eaff;
+  min-height:100vh;
+  padding:40px;
+}
+
+/* background grid */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  opacity:0.05;
+}
+
+/* ---------------- Page Layout ---------------- */
+.wrapper {
+  max-width:780px;
+  margin:auto;
+}
+
+.page-title {
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:26px;
+}
+
+/* ONE SINGLE BLOCK */
+.block {
+  background:var(--card-bg);
+  padding:28px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.05);
+  backdrop-filter:blur(6px);
+  box-shadow:0 8px 40px rgba(0,0,0,0.4);
+}
+
+/* ---------------- Upload ---------------- */
+.upload-box {
+  height: 220px;
+  width: 220px;
+  border: 2px dashed rgba(106,59,255,0.25);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;       /* Makes box clickable */
+  background: rgba(255,255,255,0.02);
+}
+
+.upload-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;   /* Keeps full image visible */
+  display: block;
+  margin: auto;          /* Center the image */
+}
+
+.upload-box input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;       /* Click → file upload */
+}
+.upload-box {
+  margin: 0 auto;   /* centers horizontally */
+}
+
+
+/* ---------------- Inputs ---------------- */
+.field {
+  margin-bottom:18px;
+}
+.field label{
+  font-size:14px;
+  opacity:0.8;
+}
+.field input, .field textarea {
+  width:100%;
+  margin-top:6px;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.03);
+  color:#fff;
+  font-size:15px;
+}
+textarea { min-height:90px; resize:vertical; }
+
+/* ---------------- Chips ---------------- */
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+.chip{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(106,59,255,0.15), rgba(0,234,255,0.05));
+}
+.chip span { font-size:13px; }
+.chip .x{
+  cursor:pointer;
+  padding:2px 6px;
+  border-radius:6px;
+  background:rgba(255,255,255,0.1);
+}
+
+/* ---------------- Achievements ---------------- */
+.ach-list {
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.ach-item{
+  padding:14px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
+}
+.ach-title{ font-weight:700; }
+.ach-meta{ font-size:13px; color:var(--muted); margin-top:4px; }
+
+.add-ach{
+  width:100%;
+  text-align:center;
+  padding:12px;
+  background:linear-gradient(90deg, rgba(106,59,255,0.2), rgba(0,234,255,0.08));
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+/* ---------------- Footer ---------------- */
+.footer {
+  margin-top:30px;
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+}
+.btn {
+  padding:12px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  border:none;
+  font-weight:600;
+}
+.cancel { background:rgba(255,255,255,0.05); color:#fff; }
+.save {
+  background:linear-gradient(90deg,var(--neon-purple),var(--neon-cyan));
+  color:#000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="page-title">Create Your Player Profile</div>
+
+  <div class="block">
+
+    <!-- Profile Picture -->
+     <form action="update.php" method="post" enctype="multipart/form-data">
+    <div class="upload-box">
+      <img id="avatarImg" src="https://via.placeholder.com/150" alt="">
+      <input id="avatarInput" type="file" accept="image/*" name="imag">
+    </div>
+  
+
+    <!-- Username -->
+    <div class="field">
+      <label>Username / Gamertag</label>
+      <input id="username" type="text" placeholder="e.g., Shroud" name="gt">
+    </div>
+
+    <!-- Headline -->
+    <div class="field">
+      <label>Headline</label>
+      <input id="headline" type="text" placeholder="Aspiring Valorant Pro" name="headline">
+    </div>
+
+    <!-- Bio -->
+    <div class="field">
+      <label>Bio</label>
+      <textarea id="bio" placeholder="Tell everyone about your gaming journey..." name="bio"></textarea>
+    </div>
+
+    <!-- Games -->
+    <div class="field">
+      <label>Games Played (press Enter)</label>
+      <input type="text" id="gameInput" placeholder="Search/Add game..." name="games">
+    </div>
+    <div id="gamesChips" class="chips"></div>
+
+    <!-- Skills -->
+    <div class="field">
+      <label>Skills (press Enter)</label>
+      <input type="text" id="skillInput" placeholder="Team Captain, Duelist, Sniper..." name="skills">
+    </div>
+    <div id="skillsChips" class="chips"></div>
+
+    <!-- Preferred Roles -->
+    <div class="field">
+      <label>Preferred Roles</label>
+      <input type="text" id="roles" placeholder="e.g., IGL, Support, DPS" name="prole">
+    </div>
+
+    <!-- Achievements -->
+    <label style="font-size:15px; font-weight:700; margin-bottom:10px; display:block;">Achievements</label>
+    <div id="achList" class="ach-list"></div>
+
+    <div id="addAch" class="add-ach">+ Add Achievement</div>
+
+    <!-- Buttons -->
+    <div class="footer">
+      <button class="btn cancel">Cancel</button>
+      <button class="btn save" type="submit">Save Profile</button>
+    </div>
+     </form>
+  </div>
+</div>
+
+<script>
+/* Avatar Preview */
+const avatarInput = document.getElementById("avatarInput");
+const avatarImg = document.getElementById("avatarImg");
+
+avatarInput.addEventListener("change", () => {
+  const f = avatarInput.files[0];
+  if (f) avatarImg.src = URL.createObjectURL(f);
+});
+
+/* Tag Chip Creator */
+function createChip(text, container){
+  const chip = document.createElement("div");
+  chip.className = "chip";
+  chip.innerHTML = `<span>${text}</span><span class="x">✕</span>`;
+  chip.querySelector(".x").addEventListener("click",()=>chip.remove());
+  container.appendChild(chip);
+}
+
+/* Games */
+const gameInput = document.getElementById("gameInput");
+const gamesChips = document.getElementById("gamesChips");
+
+gameInput.addEventListener("keydown", e=>{
+  if(e.key==="Enter"){
+    e.preventDefault();
+    if(gameInput.value.trim()!==""){
+      createChip(gameInput.value.trim(), gamesChips);
+      gameInput.value="";
+    }
+  }
+});
+
+/* Skills */
+const skillInput = document.getElementById("skillInput");
+const skillsChips = document.getElementById("skillsChips");
+
+skillInput.addEventListener("keydown", e=>{
+  if(e.key==="Enter"){
+    e.preventDefault();
+    if(skillInput.value.trim()!==""){
+      createChip(skillInput.value.trim(), skillsChips);
+      skillInput.value="";
+    }
+  }
+});
+
+/* Achievements Add */
+const achList = document.getElementById("achList");
+
+document.getElementById("addAch").onclick = () => {
+  let title = prompt("Achievement Title:");
+  if(!title) return;
+  let when = prompt("When (Month/Year):");
+  let desc = prompt("Short Description:");
+
+  const node = document.createElement("div");
+  node.className="ach-item";
+  node.innerHTML=`
+    <div class="ach-title">${title}</div>
+    <div class="ach-meta">${when}</div>
+    <div class="ach-meta">${desc}</div>
+  `;
+  achList.appendChild(node);
+};
+</script>
+
+</body>
+</html>
